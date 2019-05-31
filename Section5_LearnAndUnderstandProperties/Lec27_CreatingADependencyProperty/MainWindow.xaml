@@ -1,0 +1,21 @@
+﻿<Window x:Class="Lec27_CreatingADependencyProperty.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lec27_CreatingADependencyProperty"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <local:MlStackPanel x:Name="MlStackPanel"
+                            IsBrownBackground="False">
+            <CheckBox x:Name="BackgroundColorCheckbox"
+                      Content="Change Background Color"
+                      IsChecked="True"
+                      Margin="50, 100, 0, 0"
+                      Checked="ToggleButton_IsCheckedOrNot"
+                      Unchecked="ToggleButton_IsCheckedOrNot"
+                      Click="BackgroundColorCheckbox_Click" />
+        </local:MlStackPanel>
+    </Grid>
+</Window>

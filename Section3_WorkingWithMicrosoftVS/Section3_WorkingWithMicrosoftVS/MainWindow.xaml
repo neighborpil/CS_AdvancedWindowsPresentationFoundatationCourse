@@ -1,0 +1,25 @@
+﻿<Window x:Class="Section3_WorkingWithMicrosoftVS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Section3_WorkingWithMicrosoftVS"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!--
+        # Property를 첫라인에 정렬하기
+         - Tools - Options - Text Editor - XAML - Formatting - Spacing에서
+           Attrbute Spacing탭에서
+           Position each attribute on a seperate line옵션을 선택한다
+           (밑에 Position first attribute on smae line as start tag도 체크)
+        -->
+
+        <Button HorizontalAlignment="Left"
+                Content="Button"
+                Margin="353,215,0,0"
+                VerticalAlignment="Top"
+                Width="75" />
+
+    </Grid>
+</Window>
