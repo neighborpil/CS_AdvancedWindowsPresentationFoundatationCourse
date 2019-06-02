@@ -34,8 +34,12 @@
         <TextBox Grid.Row="2"
                  Grid.Column="1"
                  VerticalAlignment="Center"
-                 Text="{Binding ElementName=NameTextBox, Path=Text, Mode=OneWay}" />
+                 Text="{Binding ElementName=NameTextBox, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 VerticalAlignment="Center"
+                 Text="{Binding ElementName=NameTextBox, Path=Text.Length, Mode=OneWay}" />
 
 
 </Grid>

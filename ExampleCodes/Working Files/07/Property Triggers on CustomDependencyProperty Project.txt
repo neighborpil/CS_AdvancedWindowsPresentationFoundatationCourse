@@ -1,0 +1,118 @@
+CODE FOR USING PROPERTY TRIGGERS TO SET MLSTACKPANEL BACKGROUND DEPENDENCY PROPERTY
+
+
+
+1. ADD THE NEW MYSTACKPANEL.CS FILE:
+
+
+POINT OUT THAT REGISTERING THE DEPENDENCY PROPERTY NO LONGER REQUIRES THE OnIsBrownBkgrdChanged CALLBACK
+
+ public class MLStackPanel : StackPanel
+    {
+
+        // THIS WAS THE ORIGINAL DP REGISTRATION
+        //public static DependencyProperty IsBrownBkgrdProperty
+        //= DependencyProperty.Register("IsBrownBkgrd", typeof(bool), typeof(MLStackPanel), new PropertyMetadata(false, OnIsBrownBkgrdChanged));
+
+
+	// THIS IS THE NEW DP REGISTRATION
+        public static DependencyProperty IsBrownBkgrdProperty
+        = DependencyProperty.Register("IsBrownBkgrd", typeof(bool), typeof(MLStackPanel));
+
+        
+        //public bool BrownBkgr
+        public bool IsBrownBkgrd
+        {
+            get { return (bool)GetValue(IsBrownBkgrdProperty); }
+            set { SetValue(IsBrownBkgrdProperty, value); }
+        }
+    }
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+NOTE!
+POINT OUT THAT USING PROPERTY TRIGGERS IN XAML ALLOWS WPF TO HANDLE OUR
+PROPERTY CHANGE CALLBACKS AUTOMATICALLY...
++++++++++++++++++++++++++++++++++++++++++++++++++
+----------------------------------------------------------------------------------------------------
+
+
+2. CHANGE THE XAML CODE TO USE PROPERTY TRIGGERS
+
+`````````````````````````````````````````````````````````````````
+THIS IS THE ORIGINAL XAML CODE WITHOUT PROPERTY TRIGGERS:
+ <!--ORIGINAL-->
+   <local:MLStackPanel x:Name="mlStack" IsBrownBkgrd="False">
+
+	<CheckBox x:Name="chkBkgColor" Content="Brown Background" HorizontalAlignment="Left" Margin="77,117,0,0" VerticalAlignment="Top" Click="bkgColor_Click" IsChecked="{x:Null}"/>
+
+   </local:MLStackPanel>
+```````````````````````````````````````````````````````````````````````
+
+
+
+
+```````````````````````````````````````````````````````````````````````
+THIS IS THE NEW XAML CODE USING PROPERTY TRIGGERS
+WE REMOVED THE IsBrownBkgrd="False" PROPERTY SETTING AND ADDED PROPERTY TRIGGERS USING STYLES
+
+<Grid>
+
+<local:MLStackPanel x:Name="mlStack">
+  <local:MLStackPanel.Style>
+    <Style>
+	<Style.Triggers>
+	   <Trigger Property="local:MLStackPanel.IsBrownBkgrd" Value="True" >
+	     <Setter Property="local:MLStackPanel.Background" Value="BurlyWood" />
+	   </Trigger>
+
+           <Trigger Property="local:MLStackPanel.IsBrownBkgrd" Value="False">
+             <Setter Property="local:MLStackPanel.Background" Value="LightGray" />
+           </Trigger>
+	</Style.Triggers>
+     </Style>
+  </local:MLStackPanel.Style>
+
+  <CheckBox x:Name="chkBkgColor" Content="Brown Background" HorizontalAlignment="Left" Margin="77,117,0,0" VerticalAlignment="Top" Click="bkgColor_Click" />
+
+</local:MLStackPanel>
+
+</Grid>
+
+-----------------------------------------------------------------------------------------
+
+
+3. THE EVENT HANDLER FOR THE BACKGROUND COLOR CHECKBOX IN MainWindow.xaml.cs DOES NOT CHANGE
+   THIS CODE CHANGES THE PROPERTY VALUES, TRIGGERING THE PROPERTY TRIGGERS!
+
+
+MainWindow.xaml.cs
+
+namespace DependencyPropertyStackPanel
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+
+
+        }
+
+        private void bkgColor_Click(object sender, RoutedEventArgs e)
+        {
+            if  (chkBkgColor.IsChecked.Value == true)
+            { 
+            	mlStack.IsBrownBkgrd = true;
+            }
+            else
+            {
+                mlStack.IsBrownBkgrd = false;
+            }
+        }
+    }
+
+}
